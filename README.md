@@ -31,6 +31,8 @@ No analytics, no cookies, no tracking and no third-party requests: the fonts (Fi
 - Accent: change the five "Accent" tokens in both the light block and the dark block.
 - Serif headlines (Saffron Studio's default): set `--font-display: var(--font-serif);` and `--display-weight: 400;`.
 
+**App screenshots on the home page:** save them as `images/screens/01.png` to `06.png`, write each one's alt text in `_src/home.html` (the `screens:start` comment explains), and run `python3 build.py`. The carousel stays out of the page until at least one image exists.
+
 **Going live on the App Store:** see the `TODO(launch)` comment in `_src/home.html`. It says where Apple's official badge comes from and has the link (App Store ID 6821221274) ready.
 
 ## Preview locally
