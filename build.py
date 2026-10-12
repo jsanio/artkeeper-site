@@ -83,7 +83,7 @@ def legal_body(name: str) -> str:
 
 PAGES = [
     dict(out="index.html", path="/", home=True, title="Art Keeper",
-         description="Scan and keep your child's art and schoolwork, organized by child and school year, with their story in their own voice. Everything stays on your phone.",
+         description="Scan and keep your child's art and schoolwork, organized by child and school year, with their story in their own voice. No account needed.",
          body=lambda: (SRC / "home.html").read_text(encoding="utf-8")),
     dict(out="support/index.html", path="/support/", title="Support",
          description="Get help with Art Keeper: contact support@artkeeper.app and answers to common questions.",
