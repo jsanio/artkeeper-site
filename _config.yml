@@ -1,0 +1,7 @@
+# GitHub Pages runs Jekyll on this folder. The pages are plain HTML (no front
+# matter), so Jekyll copies them as they are. This list keeps working files
+# off the public site. Folders starting with "_" (like _src) are skipped anyway.
+exclude:
+  - README.md
+  - build.py
+  - screenshots

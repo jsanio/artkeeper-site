@@ -1,0 +1,195 @@
+/* Art Keeper website. Saffron Studio, with Art Keeper's terracotta accent.
+ *
+ * Every colour and font family is set in the custom properties at the top of
+ * this file, so the look can be switched in a few lines:
+ *   - Accent: change the five "Accent" tokens (light and dark blocks).
+ *   - Headlines: change --font-display and --display-weight (see "Type").
+ * Nothing below the tokens names a colour or a font directly.
+ * Fonts are self-hosted (assets/fonts), so no third party sees visitors.
+ */
+
+/* ---------- Fonts (self-hosted, SIL Open Font License) ---------- */
+@font-face { font-family: "Figtree"; font-weight: 400; font-style: normal; font-display: swap; src: url("/assets/fonts/Figtree-400Regular.woff2") format("woff2"); }
+@font-face { font-family: "Figtree"; font-weight: 500; font-style: normal; font-display: swap; src: url("/assets/fonts/Figtree-500Medium.woff2") format("woff2"); }
+@font-face { font-family: "Figtree"; font-weight: 600; font-style: normal; font-display: swap; src: url("/assets/fonts/Figtree-600SemiBold.woff2") format("woff2"); }
+@font-face { font-family: "Figtree"; font-weight: 700; font-style: normal; font-display: swap; src: url("/assets/fonts/Figtree-700Bold.woff2") format("woff2"); }
+/* Only downloaded if --font-display is switched to the serif. */
+@font-face { font-family: "Instrument Serif"; font-weight: 400; font-style: normal; font-display: swap; src: url("/assets/fonts/InstrumentSerif-400Regular.woff2") format("woff2"); }
+
+:root {
+  color-scheme: light dark;
+
+  /* ---------- Type ---------- */
+  --font-sans: "Figtree", -apple-system, system-ui, "Segoe UI", sans-serif;
+  --font-serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+  /* Headlines. Default: sans (Figtree 700).
+     For Saffron Studio's serif headlines: --font-display: var(--font-serif); --display-weight: 400; */
+  --font-display: var(--font-sans);
+  --display-weight: 700;
+  --font-body: var(--font-sans);
+
+  /* ---------- Ground (Saffron Studio, Light) ---------- */
+  --background: #F4EFE6;       /* ivory paper */
+  --surface: #FBF8F2;          /* raised rows and cards */
+  --surface-border: #DED6C8;   /* 1px border on surfaces; no shadows */
+  --hairline: #DED6C8;         /* dividers */
+  --pill-border: #CFC6B7;      /* outline of badges and chips */
+  --text: #1E1C1A;
+  --text-secondary: #6E6558;   /* 5.1:1 on background */
+  --primary: #1E1C1A;          /* primary pill: the inverse of the page */
+  --on-primary: #F4EFE6;
+
+  /* ---------- Accent: terracotta (Art Keeper), Light ---------- */
+  --hero: #E58E68;             /* the one bold block per page */
+  --on-hero: #1E1C1A;          /* headline on hero, both themes */
+  --on-hero-secondary: #3A1D10;/* body on hero */
+  --accent: #B5583A;           /* small marks on the page ground, 24px+ only */
+  --primary-icon: #E58E68;     /* glint on the primary pill */
+  --link-underline: #B5583A;   /* link text uses --text; the underline carries the accent */
+}
+
+/* ---------- Dark: designed, not inverted. Kept in step with the block above. ---------- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #121A2A;     /* deep navy */
+    --surface: #1A2438;
+    --surface-border: #26314A;
+    --hairline: #26314A;
+    --pill-border: #34405A;
+    --text: #F1ECE2;
+    --text-secondary: #9BA6B8;
+    --primary: #F1ECE2;
+    --on-primary: #121A2A;
+
+    --hero: #DE875F;
+    --on-hero: #1E1C1A;
+    --on-hero-secondary: #3A1D10;
+    --accent: #E58E68;
+    --primary-icon: #A84E30;
+    --link-underline: #E58E68;
+  }
+}
+
+/* Increase Contrast equivalent: strengthen only the quiet colours. */
+@media (prefers-contrast: more) {
+  :root { --surface-border: #B9AE9C; --hairline: #B9AE9C; --pill-border: #A89D8B; --text-secondary: #4F473B; --accent: #9A4527; }
+}
+@media (prefers-contrast: more) and (prefers-color-scheme: dark) {
+  :root { --surface-border: #44516E; --hairline: #44516E; --pill-border: #52607E; --text-secondary: #C3CBD8; --accent: #EFA383; }
+}
+
+/* ---------- Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--text);
+  font: 400 17px/1.55 var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-wrap: break-word;
+}
+img, svg { display: block; max-width: 100%; }
+a { color: var(--text); text-decoration-line: underline; text-decoration-color: var(--link-underline); text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
+a:hover { text-decoration-thickness: 2.5px; }
+:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; border-radius: 4px; }
+strong { font-weight: 600; }
+
+.skip { position: absolute; left: 16px; top: -100px; z-index: 10; padding: 10px 18px; border-radius: 999px; background: var(--primary); color: var(--on-primary); text-decoration: none; font-weight: 600; }
+.skip:focus { top: 12px; }
+
+/* 8pt grid; 20px gutter on phones. */
+.wrap { width: 100%; max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+.wrap--text { max-width: 720px; }
+
+/* ---------- Top bar ---------- */
+.topbar { padding: 20px 0; }
+.topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.wordmark { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); font: 700 14px/1 var(--font-body); letter-spacing: 0.12em; text-transform: uppercase; }
+.wordmark img { width: 32px; height: 32px; border-radius: 8px; }
+.topnav { display: flex; gap: 4px; }
+.topnav a { text-decoration: none; font-weight: 500; font-size: 15px; padding: 10px 14px; border-radius: 999px; min-height: 44px; display: inline-flex; align-items: center; }
+.topnav a:hover, .topnav a[aria-current="page"] { background: var(--surface); box-shadow: inset 0 0 0 1px var(--surface-border); }
+@media (max-width: 479px) { .topnav { display: none; } }
+
+/* ---------- Type ---------- */
+h1, h2, h3 { font-family: var(--font-display); font-weight: var(--display-weight); color: var(--text); margin: 0; }
+.display { font-size: clamp(44px, 9vw, 72px); line-height: 1; letter-spacing: -0.02em; }
+.title { font-size: clamp(32px, 6vw, 44px); line-height: 1.05; letter-spacing: -0.015em; }
+.eyebrow { font: 700 13px/1.2 var(--font-body); letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-secondary); margin: 0 0 12px; }
+.lead { font-size: clamp(19px, 2.4vw, 22px); line-height: 1.5; color: var(--text); max-width: 34em; }
+.muted { color: var(--text-secondary); }
+
+/* ---------- Hero: the one bold block ---------- */
+.hero { position: relative; overflow: hidden; background: var(--hero); color: var(--on-hero); border-radius: 30px; padding: 40px 24px 40px; margin: 8px 0 0; }
+.hero h1 { color: var(--on-hero); position: relative; }
+.hero .eyebrow { color: var(--on-hero-secondary); position: relative; }
+.hero p { color: var(--on-hero-secondary); position: relative; }
+.hero .lead { color: var(--on-hero); margin: 20px 0 0; }
+.hero-motif { position: absolute; right: -92px; top: -78px; width: 220px; height: 220px; color: var(--on-hero); pointer-events: none; }
+@media (min-width: 720px) {
+  .hero { padding: 72px 64px; }
+  .hero-motif { width: 380px; height: 380px; right: -90px; top: -80px; }
+}
+
+/* ---------- App Store area ---------- */
+.get { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin: 32px 0 0; }
+.get p { margin: 0; }
+.pill { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 12px 24px; border-radius: 999px; font: 600 17px/22px var(--font-body); text-decoration: none; }
+.pill--primary { background: var(--primary); color: var(--on-primary); }
+.pill--primary svg { color: var(--primary-icon); }
+.pill--secondary { background: var(--surface); color: var(--text); border: 1px solid var(--surface-border); }
+.pill:active { transform: scale(0.97); opacity: 0.8; }
+.badge { display: inline-flex; align-items: center; min-height: 32px; padding: 4px 14px; border-radius: 999px; border: 1px solid var(--pill-border); font: 700 12px/1 var(--font-body); letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-secondary); }
+
+/* ---------- Feature rows ---------- */
+.section { padding: 64px 0 0; }
+.features { list-style: none; margin: 24px 0 0; padding: 0; display: grid; gap: 12px; }
+@media (min-width: 720px) { .features { grid-template-columns: 1fr 1fr; gap: 16px; } }
+.feature { background: var(--surface); border: 1px solid var(--surface-border); border-radius: 22px; padding: 22px 24px; }
+.feature h3 { font-family: var(--font-body); font-weight: 600; font-size: 19px; line-height: 1.3; }
+.feature p { margin: 6px 0 0; color: var(--text-secondary); }
+.feature .num { display: block; font: var(--display-weight) 28px/1 var(--font-display); color: var(--accent); margin: 0 0 12px; font-variant-numeric: tabular-nums; }
+
+/* ---------- Long text (privacy, terms, support) ---------- */
+.prose { padding: 16px 0 0; }
+.prose h1 { font-size: clamp(34px, 7vw, 48px); line-height: 1.05; letter-spacing: -0.015em; margin: 0 0 16px; }
+.prose h2 { font-size: 24px; line-height: 1.25; letter-spacing: -0.005em; margin: 48px 0 12px; }
+.prose h3 { font-family: var(--font-body); font-weight: 600; font-size: 19px; line-height: 1.35; margin: 32px 0 8px; }
+.prose p, .prose ul, .prose ol { margin: 0 0 16px; }
+.prose ul, .prose ol { padding-left: 1.3em; }
+.prose li { margin: 0 0 10px; }
+.prose li::marker { color: var(--accent); }
+.table-scroll { overflow-x: auto; margin: 0 0 16px; border: 1px solid var(--surface-border); border-radius: 16px; background: var(--surface); }
+.prose table { width: 100%; border-collapse: collapse; font-size: 16px; min-width: 520px; }
+.prose th, .prose td { text-align: left; vertical-align: top; padding: 12px 16px; border-bottom: 1px solid var(--hairline); }
+.prose tr:last-child td { border-bottom: 0; }
+.prose th { font-weight: 600; }
+
+/* Contact card on Support */
+.contact { background: var(--surface); border: 1px solid var(--surface-border); border-radius: 22px; padding: 24px; margin: 24px 0 8px; }
+.contact p { margin: 0 0 16px; color: var(--text-secondary); }
+.contact .pill { margin: 0; }
+
+/* FAQ */
+.faq { margin: 8px 0 0; }
+.faq details { border-bottom: 1px solid var(--hairline); }
+.faq details:first-child { border-top: 1px solid var(--hairline); }
+.faq summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 18px 0; min-height: 44px; font-weight: 600; font-size: 18px; line-height: 1.35; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: ""; flex: none; width: 10px; height: 10px; border-right: 2px solid var(--text-secondary); border-bottom: 2px solid var(--text-secondary); transform: rotate(45deg) translateY(-3px); transition: transform 0.2s; }
+.faq details[open] summary::after { transform: rotate(-135deg) translateY(-3px); }
+.faq .answer { padding: 0 0 12px; }
+.faq .answer p, .faq .answer ol, .faq .answer ul { margin: 0 0 12px; }
+
+/* ---------- Footer ---------- */
+.footer { margin-top: 96px; padding: 32px 0 48px; border-top: 1px solid var(--hairline); color: var(--text-secondary); font-size: 15px; }
+.footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px 32px; }
+.footer nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 24px; }
+.footer a { color: var(--text); display: inline-flex; min-height: 44px; align-items: center; }
+.footer p { margin: 0; display: flex; align-items: center; min-height: 44px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pill:active { transform: none; }
+  .faq summary::after { transition: none; }
+}
