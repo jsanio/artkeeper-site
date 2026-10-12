@@ -114,6 +114,10 @@ strong { font-weight: 600; }
 
 /* ---------- Type ---------- */
 h1, h2, h3 { font-family: var(--font-display); font-weight: var(--display-weight); color: var(--text); margin: 0; }
+/* No widows: balance headings, keep paragraphs from ending on one word. */
+h1, h2, h3, summary, .eyebrow { text-wrap: balance; }
+p, li, dd, figcaption { text-wrap: pretty; }
+td, th { text-wrap: balance; }
 .display { font-size: clamp(44px, 9vw, 72px); line-height: 1; letter-spacing: -0.02em; }
 .title { font-size: clamp(32px, 6vw, 44px); line-height: 1.05; letter-spacing: -0.015em; }
 .eyebrow { font: 700 13px/1.2 var(--font-body); letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-secondary); margin: 0 0 12px; }
