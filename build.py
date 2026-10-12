@@ -16,6 +16,7 @@ to them is wrapping the permissions table so it scrolls on narrow phones.
 from html import escape
 from pathlib import Path
 import re
+import struct
 
 ROOT = Path(__file__).resolve().parent
 SRC = ROOT / "_src"
@@ -81,10 +82,48 @@ def legal_body(name: str) -> str:
     return f'<div class="wrap wrap--text">\n<article class="prose">\n{inner}\n</article>\n</div>'
 
 
+def png_size(path: Path) -> tuple[int, int]:
+    with path.open("rb") as fh:
+        head = fh.read(24)
+    if head[:8] != b"\x89PNG\r\n\x1a\n":
+        raise SystemExit(f"{path.relative_to(ROOT)} isn't a PNG")
+    return struct.unpack(">II", head[16:24])
+
+
+def screens(body: str) -> str:
+    """Fills the home page's screenshots carousel from images/screens/.
+
+    Keeps each <li> whose image exists (adding its width and height), and drops
+    the whole block between the screens:start and screens:end comments when
+    none do, so the section stays hidden until the screenshots arrive.
+    """
+    m = re.search(r"\s*<!-- screens:start.*?-->(.*?)<!-- screens:end -->\n?", body, re.S)
+    if not m:
+        return body
+    section = m.group(1)
+    kept = 0
+
+    def keep(li: re.Match) -> str:
+        nonlocal kept
+        src = re.search(r'src="/(images/screens/[^"]+)"', li.group(0)).group(1)
+        path = ROOT / src
+        if not path.exists():
+            return ""
+        alt = re.search(r'alt="([^"]*)"', li.group(0)).group(1)
+        if not alt.strip() or "TODO" in alt:
+            raise SystemExit(f"{src}: write its alt text in _src/home.html before building")
+        w, h = png_size(path)
+        kept += 1
+        return li.group(0).replace("<img ", f'<img width="{w}" height="{h}" ', 1)
+
+    section = re.sub(r"[ \t]*<li class=\"screen\">.*?</li>\n", keep, section, flags=re.S)
+    return body[: m.start()] + ("\n" + section.rstrip() + "\n" if kept else "\n") + body[m.end():]
+
+
 PAGES = [
     dict(out="index.html", path="/", home=True, title="Art Keeper",
          description="Scan and keep your child's art and schoolwork, organized by child and school year, with their story in their own voice. No account needed.",
-         body=lambda: (SRC / "home.html").read_text(encoding="utf-8")),
+         body=lambda: screens((SRC / "home.html").read_text(encoding="utf-8"))),
     dict(out="support/index.html", path="/support/", title="Support",
          description="Get help with Art Keeper: contact support@artkeeper.app and answers to common questions.",
          body=lambda: (SRC / "support.html").read_text(encoding="utf-8")),

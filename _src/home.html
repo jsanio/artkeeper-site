@@ -53,6 +53,29 @@
     </ol>
   </section>
 
+  <!-- screens:start
+    App screenshots carousel. build.py keeps each <li> only if its image exists
+    in images/screens/, and leaves the whole section out until at least one does,
+    so nothing shows (and nothing 404s) before the real screenshots arrive.
+    To fill it: save Jason's build 4 screenshots as images/screens/01.png ... 06.png
+    (full-size iPhone PNGs, portrait), replace each TODO alt with a short
+    description of that screen (build.py refuses to publish a TODO alt), and run
+    python3 build.py. Scrolls sideways with touch, trackpad, or the arrow keys
+    once focused; no JavaScript.
+  -->
+  <section class="section screens" aria-labelledby="screens-title">
+    <h2 id="screens-title" class="visually-hidden">Screenshots</h2>
+    <ul class="screens-row" tabindex="0" aria-label="Art Keeper screenshots, scrolls sideways">
+      <li class="screen"><img src="/images/screens/01.png" alt="TODO: describe 01.png" loading="lazy" decoding="async"></li>
+      <li class="screen"><img src="/images/screens/02.png" alt="TODO: describe 02.png" loading="lazy" decoding="async"></li>
+      <li class="screen"><img src="/images/screens/03.png" alt="TODO: describe 03.png" loading="lazy" decoding="async"></li>
+      <li class="screen"><img src="/images/screens/04.png" alt="TODO: describe 04.png" loading="lazy" decoding="async"></li>
+      <li class="screen"><img src="/images/screens/05.png" alt="TODO: describe 05.png" loading="lazy" decoding="async"></li>
+      <li class="screen"><img src="/images/screens/06.png" alt="TODO: describe 06.png" loading="lazy" decoding="async"></li>
+    </ul>
+  </section>
+  <!-- screens:end -->
+
   <section class="section" aria-labelledby="private">
     <p class="eyebrow">Privacy</p>
     <h2 id="private" class="title">Yours to keep.</h2>
