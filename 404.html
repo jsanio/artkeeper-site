@@ -25,13 +25,46 @@
 </header>
 <main id="main">
 <div class="wrap wrap--text">
-  <article class="prose">
+  <!-- Invite links (artkeeper.app/join/K7QM-3XRP) land here when the app isn't
+       installed: GitHub Pages serves this page for any path it doesn't have, and
+       the script below swaps in the invite. With the app installed, iOS opens
+       the app instead (see /.well-known/apple-app-site-association). -->
+  <article class="prose" id="not-found">
     <p class="eyebrow">Page not found</p>
     <h1>We couldn&rsquo;t find that page.</h1>
     <p class="lead">The link may be old, or the address may have a typo.</p>
     <p><a class="pill pill--secondary" href="/">Go to the home page</a></p>
   </article>
+  <article class="prose" id="invite" hidden>
+    <p class="eyebrow">Family invite</p>
+    <h1>You&rsquo;re invited to Art Keeper.</h1>
+    <p class="lead">Someone in your family wants to share the kids&rsquo; art and stories with you.</p>
+    <!-- TODO(beta): the TestFlight public link; TODO(launch): the App Store link. Empty hides the button. -->
+    <p id="get-app" data-href=""><a class="pill pill--primary" href="#">Get Art Keeper</a></p>
+    <p id="ask-for-app" hidden>Art Keeper is in beta. Ask the person who invited you for the link to try it.</p>
+    <p><strong>Already have it?</strong> Tap the invite link again and it opens in the app.</p>
+    <p class="muted">Or open Art Keeper, go to Settings &rarr; Account, sign in, and enter this code:</p>
+    <p class="invite-code" id="invite-code"></p>
+    <p class="muted">Codes work once, for 14 days.</p>
+  </article>
 </div>
+<script>
+  (function () {
+    var m = location.pathname.match(/^\/join\/([A-Za-z0-9]{4}-?[A-Za-z0-9]{4})\/?$/);
+    if (!m) return;
+    document.title = 'You’re invited · Art Keeper';
+    document.getElementById('not-found').hidden = true;
+    document.getElementById('invite').hidden = false;
+    document.getElementById('invite-code').textContent = m[1].toUpperCase();
+    var get = document.getElementById('get-app');
+    var href = get.getAttribute('data-href');
+    if (href) get.querySelector('a').href = href;
+    else {
+      get.hidden = true;
+      document.getElementById('ask-for-app').hidden = false;
+    }
+  })();
+</script>
 </main>
 <footer class="footer">
   <div class="wrap">

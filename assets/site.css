@@ -123,6 +123,8 @@ td, th { text-wrap: balance; }
 .eyebrow { font: 700 13px/1.2 var(--font-body); letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-secondary); margin: 0 0 12px; }
 .lead { font-size: clamp(19px, 2.4vw, 22px); line-height: 1.5; color: var(--text); max-width: 34em; }
 .muted { color: var(--text-secondary); }
+[hidden] { display: none !important; }
+.invite-code { font: 700 clamp(32px, 9vw, 44px)/1.1 var(--font-body); letter-spacing: 0.08em; color: var(--text); margin: 8px 0 16px; }
 
 /* ---------- Hero: the one bold block ---------- */
 .hero { position: relative; overflow: hidden; background: var(--hero); color: var(--on-hero); border-radius: 30px; padding: 40px 24px 40px; margin: 8px 0 0; }

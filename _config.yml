@@ -5,3 +5,7 @@ exclude:
   - README.md
   - build.py
   - screenshots
+# Jekyll skips dot-folders unless they're listed. Apple reads
+# /.well-known/apple-app-site-association to let invite links open the app.
+include:
+  - .well-known

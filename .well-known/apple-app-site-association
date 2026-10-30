@@ -1,0 +1,10 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["NY5J499945.app.artkeeper", "NY5J499945.app.artkeeper.redesign"],
+        "components": [{ "/": "/join/*", "comment": "Family invites open the app when it's installed" }]
+      }
+    ]
+  }
+}

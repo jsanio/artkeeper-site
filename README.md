@@ -13,6 +13,8 @@ No analytics, no cookies, no tracking and no third-party requests: the fonts (Fi
 | `assets/fonts/` | Self-hosted woff2 fonts (Latin subset) and their licences |
 | `favicon-32.png`, `apple-touch-icon.png`, `assets/icon-192.png` | From the app icon |
 | `CNAME` | `artkeeper.app`, for GitHub Pages |
+| `.well-known/apple-app-site-association` | Tells iOS that invite links (`/join/*`) open the Art Keeper app. Team ID NY5J499945, bundle IDs `app.artkeeper` and `app.artkeeper.redesign`. Published because `_config.yml` includes `.well-known` |
+| `404.html` and `/join/…` | Invite links (`artkeeper.app/join/K7QM-3XRP`) have no page of their own: GitHub Pages serves `404.html`, whose script shows the invite (code, Get Art Keeper) instead. The Get Art Keeper link is `data-href` in `_src/404.html` (empty: the button is hidden and a beta note shows) |
 | `_src/` | Page content. `_src/legal/` holds the approved Privacy Policy and Terms, word for word |
 | `build.py` | Wraps `_src/` pages in the shared header and footer (Python 3, standard library only) |
 | `_config.yml` | Keeps `README.md`, `build.py` and `screenshots/` off the public site (`_src/` is skipped because it starts with `_`) |
